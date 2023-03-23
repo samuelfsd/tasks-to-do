@@ -2,7 +2,6 @@ package com.book.todo.repository;
 
 
 import com.book.todo.entity.Task;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,8 +20,8 @@ import java.util.Optional;
 public interface TaskRepository extends JpaRepository<Task, Integer>,
         JpaSpecificationExecutor<Task>,
         QuerydslPredicateExecutor<Task> {
-    Page<Task> findById(@Param(value = "id")List<Integer> eventid, Pageable pageable);
-    Page<Task> findByName(@Param(value = "name")Collection<String> names, Pageable pageable);
+    Page<Task> findByIdIn(Iterable<Integer> eventId, Pageable pageable);
+    Page<Task> findByNameIn(Iterable<String> names, Pageable pageable);
     @Query(name = "Task.findByName", nativeQuery = true)
     List<Task> findByName(@Param("name") String name);
     Page<Task> findAll(Pageable pageable);
