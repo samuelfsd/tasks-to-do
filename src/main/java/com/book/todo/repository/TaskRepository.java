@@ -20,8 +20,8 @@ import java.util.Optional;
 public interface TaskRepository extends JpaRepository<Task, Integer>,
         JpaSpecificationExecutor<Task>,
         QuerydslPredicateExecutor<Task> {
-    Page<Task> findByIdIn(Iterable<Integer> eventId, Pageable pageable);
-    Page<Task> findByNameIn(Iterable<String> names, Pageable pageable);
+    Page<Task> findByIdIn(@Param(value = "id") List<Integer> eventId, Pageable pageable);
+    Page<Task> findByNameIn(@Param("name") Collection<String> names, Pageable pageable);
     @Query(name = "Task.findByName", nativeQuery = true)
     List<Task> findByName(@Param("name") String name);
     Page<Task> findAll(Pageable pageable);
